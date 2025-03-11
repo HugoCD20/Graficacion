@@ -33,41 +33,68 @@ export class CanvasLocal {
     this.graphics.stroke();
   }
 
-  fx(x:number):number {
+  /*fx(x:number):number {
     return Math.sin(x*2.5);
-  }
-//640x480
+  }*/
+
 
   paint() {
-    this.drawLine(240, 160, 400, 160); 
-    this.drawLine(400, 160, 400, 320); 
-    this.drawLine(240, 320, 400, 320);
-    this.drawLine(240, 160, 240, 320); 
     
-    /*this.drawLine(245, 160, 400, 165); 
-    this.drawLine(400, 165, 395, 320); 
-    this.drawLine(240, 315, 395, 320); 
-    this.drawLine(245, 160, 240, 315); */
-    let xA=240;
-    let yA=160;
-    let xB=400;
-    let yB=160;
-    let xC=400;
-    let yC=320;
-    let xD=240;
-    let yD=320;
-    const n=5;
+    let lado = 1;
+    let side = 0.95 * lado;
+    let sideHalf = 0.5 * side;
+    let xCenter = 320;
+    let yCenter = 240;
+      
+    let h = sideHalf * Math.sqrt(3);
+    let xA, yA, xB, yB, xC, yC,
+    xA1, yA1, xB1, yB1, xC1, yC1, p, q;
+     q = 0.05;
+    p = 1 - q;
+    xA = xCenter - sideHalf;
+    yA = yCenter - 0.5 * h;
+    xB = xCenter + sideHalf;
+    yB = yA;
+    xC = xCenter;
+    yC = yCenter + 0.5 * h; 
 
-    for (let m = 0; m < 17; m++){
-      xA+=n; yA+=n;
-      xB-=n; yB+=n;
-      xC-=n; yC-=n;
-      xD+=n; yD-=n;
-      this.drawLine(xA, 160, 400, yA); 
-      this.drawLine(400, yB, xB, 320); 
-      this.drawLine(240, yC, xC, 320); 
-      this.drawLine(xD, 160, 240, yD); 
+    for (let m = 0; m < 4; m++){
+      for (let n = 0; n < 4; n++){
+        xA = 1+n*lado - sideHalf;
+        yA = 1+m*lado - 0.5 * h;
+        xB = 1+n*lado+ sideHalf;
+        yB = yA;
+        xC = 1+n*lado;
+        yC = 1+m*lado + 0.5 * h; 
+        for (let i = 0; i < 20; i++){
+          this.drawLine(this.iX(xA), this.iY(yA), this.iX(xB), this.iY(yB));
+          this.drawLine(this.iX(xB), this.iY(yB), this.iX(xC), this.iY(yC));
+          this.drawLine(this.iX(xC), this.iY(yC), this.iX(xA), this.iY(yA));
+          xA1 = p * xA + q * xB;
+          yA1 = p * yA + q * yB;
+          xB1 = p * xB + q * xC;
+          yB1 = p * yB + q * yC;
+          xC1 = p * xC + q * xA;
+          yC1 = p * yC + q * yA;
+          xA = xA1; xB = xB1; xC = xC1;
+          yA = yA1; yB = yB1; yC = yC1;
+        }
+      }
     }
+
+    /* for (let i = 0; i < 50; i++){
+        this.drawLine(xA, yA, xB, yB);
+        this.drawLine(xB, yB, xC, yC);
+        this.drawLine(xC, yC, xA, yA);
+        xA1 = p * xA + q * xB;
+        yA1 = p * yA + q * yB;
+        xB1 = p * xB + q * xC;
+        yB1 = p * yB + q * yC;
+        xC1 = p * xC + q * xA;
+        yC1 = p * yC + q * yA;
+        xA = xA1; xB = xB1; xC = xC1;
+        yA = yA1; yB = yB1; yC = yC1;
+    } */
     
   }
 
