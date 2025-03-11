@@ -46,7 +46,7 @@ export class CanvasLocal {
     let xC=400, yC=320;
     let xD=240, yD=320;
     const n=5;
-    const vueltas=50;
+    const vueltas=17;
 
     for (let m = 0; m < vueltas; m++){
       xA+=n; yA+=n;
